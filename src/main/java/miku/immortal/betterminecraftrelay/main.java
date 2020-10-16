@@ -1,14 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * license: Uhh just use it ig and give me credit please
  */
 package miku.immortal.betterminecraftrelay;
-
-/**
- *
- * @author shah3
- */
+// Made by an idiot
 import com.mrpowergamerbr.temmiewebhook.DiscordMessage;
 import com.mrpowergamerbr.temmiewebhook.TemmieWebhook;
 import discord4j.core.DiscordClient;
