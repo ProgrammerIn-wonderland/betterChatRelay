@@ -23,6 +23,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class main extends JavaPlugin implements Listener{
+    final private String webhook = reader("webhook.txt");
+    
     @Override
     public void onEnable(){
         getServer().getPluginManager().registerEvents(new MtoD(), this);
@@ -36,9 +38,7 @@ public class main extends JavaPlugin implements Listener{
             if (!message.getAuthor().isPresent()){
                 System.out.println("shouldn't send");
             } else {
-                System.out.println("Recieved message: <" + message.getUserData().username() + "> " + message.getContent() + "\nin channelID: " + message.getChannelId().asString());
-                System.out.println(message.getChannelId().asString().equals("766753386611605534"));
-                if (message.getChannelId().asString().equals("766753386611605534")) {
+                if (message.getChannelId().asString().equals(channelID)) {
                     Bukkit.broadcastMessage("<"+message.getUserData().username()+"> " + message.getContent());
                 }
             }
