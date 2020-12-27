@@ -7,7 +7,10 @@ package miku.immortal.betterminecraftrelay;
 
 import com.mrpowergamerbr.temmiewebhook.DiscordMessage;
 import com.mrpowergamerbr.temmiewebhook.TemmieWebhook;
-import static miku.immortal.betterminecraftrelay.main.reader;
+
+import java.io.IOException;
+import java.util.Properties;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,9 +24,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * @author shah3
  */
 public class MtoD implements Listener{
+	
     
-    
-    final private String webhook = reader("webhook.txt");
+    final private String webhook = (String) main.relay.get("webhook");
     
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {

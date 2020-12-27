@@ -7,25 +7,38 @@ import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
-import discord4j.core.object.Embed.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 public class main extends JavaPlugin implements Listener{
-    final private String webhook = reader("webhook.txt");
-    
+    public static Properties relay = null;
     @Override
     public void onEnable(){
+    	
+		try {
+			relay = loadProperties();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         getServer().getPluginManager().registerEvents(new MtoD(), this);
-        final String token = reader("token.txt");
+        final String token = (String) relay.get("token");
         System.out.println("Token: "+token);
         final DiscordClient client = DiscordClient.create(token);
         final GatewayDiscordClient gateway = client.login().block();
-        final String channelID = reader("channelID.txt");
+        final String channelID = (String) relay.get("channelID");
         gateway.on(MessageCreateEvent.class).subscribe(event -> {
             final Message message = event.getMessage();
             if (!message.getAuthor().isPresent()){
@@ -33,37 +46,44 @@ public class main extends JavaPlugin implements Listener{
             } else {
                 if (message.getChannelId().asString().equals(channelID)) {
                 	Bukkit.broadcastMessage("<"+message.getUserData().username()+"> " + message.getContent());
-                	if(message.getAttachments().size() != 0) {
-                		Bukkit.getServer().dispatchCommand(
-                		        Bukkit.getConsoleSender(),
-                		        "/tellraw @a {\"text\":\"Message contains Image\",\"bold\":true,\"italic\":true,\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tomap" + message.getEmbeds().get(0).getUrl() +"\"}}");
+                	message.getAttachments().forEach(attachement -> {
+                			System.out.println(attachement.getUrl());
+                			try {
+								boolean success = Bukkit.getScheduler().callSyncMethod( this, () -> Bukkit.dispatchCommand( Bukkit.getConsoleSender(), "tellraw @a {\"text\":\"Message contains Image\",\"bold\":true,\"italic\":true,\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tomap " + attachement.getUrl() +"\"}}" ) ).get();
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+                			
                 		}
-                	}
+                	);
                 }
-        });
+            }});
+    }
+    public static void saveProperties(Properties p) throws IOException
+    {
+        FileOutputStream fr = new FileOutputStream("relay.properties");
+        p.store(fr, "Properties");
+        fr.close();
+        System.out.println("After saving properties: " + p);
     }
 
+    static Properties loadProperties()throws IOException
+    {
+        FileInputStream fi=new FileInputStream("relay.properties");
+        Properties p = new Properties();
+        p.load(fi);
+        fi.close();
+        return p;
+    }
     
 
     @Override
     public void onDisable(){
-        System.out.println("Disabling this plugin works.");
+        System.out.println("Disabling Chat Relay");
     }
-    public static String reader(String filename) {  
-        try {
-                File myObj = new File(filename);
-                Scanner myReader = new Scanner(myObj);  
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-                    System.out.println(data);
-                    return data;
-            }
-            myReader.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            } 
-        return null;
-  }
 
 }
