@@ -11,7 +11,10 @@ import static miku.immortal.betterminecraftrelay.main.reader;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  *
@@ -33,6 +36,39 @@ public class MtoD implements Listener{
             .username(player.getDisplayName())
             .content(event.getMessage()) 
             .avatarUrl(minecraftHead)
+            .build();
+        temmie.sendMessage(dm);
+    }
+    @EventHandler
+    public void onPlayerDeath(PlayerDeathEvent event) {
+    	System.out.println("Player died");
+    	TemmieWebhook temmie = new TemmieWebhook(webhook);
+        DiscordMessage dm = DiscordMessage.builder()
+            .username("Server")
+            .content(event.getDeathMessage()) 
+            .avatarUrl("https://crafatar.com/avatars/6d959fcce0ca44ff8d49f4a2ae9f8de8")
+            .build();
+        temmie.sendMessage(dm);
+    }
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+    	System.out.println("Player died");
+    	TemmieWebhook temmie = new TemmieWebhook(webhook);
+        DiscordMessage dm = DiscordMessage.builder()
+            .username("Server")
+            .content(event.getJoinMessage().substring(2)) 
+            .avatarUrl("https://www.filterforge.com/filters/11635.jpg")
+            .build();
+        temmie.sendMessage(dm);
+    }
+    @EventHandler
+    public void onPlayerLeave(PlayerQuitEvent event) {
+    	System.out.println("Player Left");
+    	TemmieWebhook temmie = new TemmieWebhook(webhook);
+        DiscordMessage dm = DiscordMessage.builder()
+            .username("Server")
+            .content(event.getQuitMessage().substring(2)) 
+            .avatarUrl("https://www.filterforge.com/filters/11635.jpg")
             .build();
         temmie.sendMessage(dm);
     }

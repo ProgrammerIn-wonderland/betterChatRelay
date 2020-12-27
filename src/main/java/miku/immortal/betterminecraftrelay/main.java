@@ -7,6 +7,7 @@ import discord4j.core.DiscordClient;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
+import discord4j.core.object.Embed.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -31,9 +32,14 @@ public class main extends JavaPlugin implements Listener{
                 System.out.println("shouldn't send");
             } else {
                 if (message.getChannelId().asString().equals(channelID)) {
-                    Bukkit.broadcastMessage("<"+message.getUserData().username()+"> " + message.getContent());
+                	Bukkit.broadcastMessage("<"+message.getUserData().username()+"> " + message.getContent());
+                	if(message.getAttachments().size() != 0) {
+                		Bukkit.getServer().dispatchCommand(
+                		        Bukkit.getConsoleSender(),
+                		        "/tellraw @a {\"text\":\"Message contains Image\",\"bold\":true,\"italic\":true,\"color\":\"aqua\",\"clickEvent\":{\"action\":\"run_command\",\"value\":\"/tomap" + message.getEmbeds().get(0).getUrl() +"\"}}");
+                		}
+                	}
                 }
-            }
         });
     }
 
