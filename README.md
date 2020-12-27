@@ -2,7 +2,7 @@
 A nice lil' discord to minecraft chat relay  for spigot based servers
 
 ### How to setup
-(Download the latest plugin jar)[https://github.com/femboy-neal/betterChatRelay/releases/download/0.2.0/betterMinecraftRelay-1.0-SNAPSHOT.jar]
+[Download the latest plugin jar](https://github.com/femboy-neal/betterChatRelay/releases/download/0.2.0/betterMinecraftRelay-1.0-SNAPSHOT.jar)
 and place it in your plugins folder
 
 Configure your relay.properties (in your servers home directory) with the following
