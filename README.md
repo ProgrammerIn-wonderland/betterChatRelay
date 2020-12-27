@@ -15,3 +15,9 @@ after that your plugin is setup and all that you have left is to enjoy!
 
 ### Build From source (Not Required)
 clone this git and run mvn install
+
+### Technologies Used in Project 
+* [SpigotMC](https://www.spigotmc.org/)
+* [Discord4j](https://github.com/Discord4J/Discord4J)
+* [TemmieWebhook](https://github.com/MrPowerGamerBR/TemmieWebhook)
+* [Crafatar](https://github.com/crafatar/crafatar)
