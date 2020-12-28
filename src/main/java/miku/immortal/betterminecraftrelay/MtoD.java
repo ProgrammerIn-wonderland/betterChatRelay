@@ -35,6 +35,7 @@ public class MtoD implements Listener{
         Player player = event.getPlayer();
         String minecraftHead = ("https://crafatar.com/avatars/" + player.getUniqueId());
         TemmieWebhook temmie = new TemmieWebhook(webhook);
+        if(event.getMessage().contains("@everyone") || event.getMessage().contains("@here")) return;
         DiscordMessage dm = DiscordMessage.builder()
             .username(player.getDisplayName())
             .content(event.getMessage()) 
