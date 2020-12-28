@@ -24,3 +24,4 @@ clone this git and run mvn install
 * [Discord4j](https://github.com/Discord4J/Discord4J)
 * [TemmieWebhook](https://github.com/MrPowerGamerBR/TemmieWebhook)
 * [Crafatar](https://github.com/crafatar/crafatar)
+* [ImageOnMap](https://github.com/zDevelopers/ImageOnMap)
