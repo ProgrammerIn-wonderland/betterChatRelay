@@ -30,8 +30,6 @@ public class MtoD implements Listener{
     
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        System.out.println("test");
-        System.out.println("Recieved message: <" + event.getPlayer()+"> " + event.getMessage()+ "\nto send to webhook: https://discord.com/api/webhooks/766753416771797034/YFtm-f60y4LawAkK27r32tUCOFZ2CqjgEJjnGvIESe2F7Ut0xRBop1MFE-pI2WHkqAFk");
         Player player = event.getPlayer();
         String minecraftHead = ("https://crafatar.com/avatars/" + player.getUniqueId());
         TemmieWebhook temmie = new TemmieWebhook(webhook);
@@ -45,7 +43,6 @@ public class MtoD implements Listener{
     }
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-    	System.out.println("Player died");
     	TemmieWebhook temmie = new TemmieWebhook(webhook);
         DiscordMessage dm = DiscordMessage.builder()
             .username("Server")
@@ -56,7 +53,6 @@ public class MtoD implements Listener{
     }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-    	System.out.println("Player died");
     	TemmieWebhook temmie = new TemmieWebhook(webhook);
         DiscordMessage dm = DiscordMessage.builder()
             .username("Server")
@@ -67,7 +63,6 @@ public class MtoD implements Listener{
     }
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-    	System.out.println("Player Left");
     	TemmieWebhook temmie = new TemmieWebhook(webhook);
         DiscordMessage dm = DiscordMessage.builder()
             .username("Server")
