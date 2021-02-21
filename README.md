@@ -8,7 +8,7 @@ and place it in your plugins folder
 Configure your relay.properties (in your servers root directory) with the following
 ```properties
 webhook = <webhook of the minecraft channel>
-channelID = <Channel ID of the minecraft server>
+channelID = <Channel ID of the minecraft channel in server>
 token =  <Token of discord bot>
 ```
 Once you do this, also install this plugin
